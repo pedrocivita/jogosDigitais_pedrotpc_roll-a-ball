@@ -98,11 +98,6 @@ public class PlayerController : MonoBehaviour
             Application.LoadLevel(1);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Application.Quit();
-        }
-
         //Back To Main Menu
         if (Input.GetKeyDown(KeyCode.M))
         {
