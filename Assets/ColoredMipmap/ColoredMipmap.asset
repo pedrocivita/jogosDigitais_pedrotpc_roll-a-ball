@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a21bebe72d47c054aa7fabe1a8e57a55, type: 3}
+  m_Name: ColoredMipmap
+  m_EditorClassIdentifier: 
+  sources:
+  - {fileID: 2800000, guid: 9dd76f5130efb994aa634cecab5b063e, type: 3}
+  - {fileID: 2800000, guid: 14723495eab3f4e408aae369dc2173a5, type: 3}
+  - {fileID: 2800000, guid: cfef0ececbe085043a8eb543916f45c4, type: 3}
+  - {fileID: 2800000, guid: 5807e43e691f6e14a826dd1597d74676, type: 3}
+  - {fileID: 2800000, guid: b610383ef72d5704eb3fa65e573caa52, type: 3}
+  - {fileID: 2800000, guid: f2f4f507abefd3c42a77fe3988f6c5c2, type: 3}
+  - {fileID: 2800000, guid: 7af2d94a3aeb7ec4f90f1f69befca0c8, type: 3}
+  - {fileID: 2800000, guid: fb45d164ea5058f4d992e90b4e6d518d, type: 3}
+  - {fileID: 2800000, guid: 0144e98773580c340bf6736b46a39710, type: 3}
+  - {fileID: 2800000, guid: 4d12b3a014a94ab438153540e0664673, type: 3}
+  - {fileID: 2800000, guid: cba6fdb13a7a2644a9e5e44ace9309f8, type: 3}
+  - {fileID: 2800000, guid: e0838779da0e9884ebf002b3ddf1373f, type: 3}
+  - {fileID: 2800000, guid: 6ec8ade1d7714f3418d6f8added14fab, type: 3}
