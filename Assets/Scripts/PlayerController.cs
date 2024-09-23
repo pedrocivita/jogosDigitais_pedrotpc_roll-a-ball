@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     private bool gameFinished = false;
     public AudioSource pickupSound;
+    public AudioSource respawnSound;
     private bool DEEPER = false;
 
     // Start is called before the first frame update
@@ -48,6 +49,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("FallZone")) 
         {
             Respawn();
+            respawnSound.Play();
         }
     }
 
