@@ -14,14 +14,12 @@ public class PlayerController : MonoBehaviour
     public float timeLimit = 60.0f; // Limite de tempo
     private Rigidbody rb;
     private int count;
-    private float movementX;
-    private float movementY;
+    private Vector2 movementInput; // Agora capturamos o movimento com um Vector2
     private bool gameFinished = false;
     public AudioSource pickupSound;
     public AudioSource respawnSound;
     private bool DEEPER = false;
 
-    // Start is called before the first frame update
     void Start()
     {
         count = 0;
@@ -32,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate() 
     {
-        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+        Vector3 movement = new Vector3(movementInput.x, 0.0f, movementInput.y);
         rb.AddForce(movement * speed);
     }
 
@@ -41,11 +39,10 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.SetActive(false);
-            count = count + 1;
+            count++;
             SetCountText();
             pickupSound.Play();
         }
-        // Detecta se a bola caiu fora da área e reposiciona
         if (other.gameObject.CompareTag("FallZone")) 
         {
             Respawn();
@@ -53,18 +50,49 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnMove(InputValue movementValue)
+    // Método chamado para movimento (teclado e controle)
+    public void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 movementVector = movementValue.Get<Vector2>();
-        movementX = movementVector.x; 
-        movementY = movementVector.y; 
+        movementInput = context.ReadValue<Vector2>(); // Captura input de teclado ou controle
+    }
+
+    // Método chamado para pular
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.performed) // Verifica se o salto foi acionado
+        {
+            Ray ray = new Ray(transform.position, Vector3.down);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 1.1f)) // Verifica se está no chão
+            {
+                rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
+            }
+        }
+    }
+
+    // Método chamado para reiniciar o jogo
+    public void OnRestart(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Application.LoadLevel(1); // Reinicia o nível
+        }
+    }
+
+    // Método chamado para voltar ao menu principal
+    public void OnMenu(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Application.LoadLevel(0); // Retorna ao menu principal
+        }
     }
 
     void SetCountText() 
     {
         countText.text = "Count: " + count.ToString();
         
-        if (count >= 21 && DEEPER != true)
+        if (count >= 21 && !DEEPER)
         {
             DEEPER = true;
             gameFinished = true;
@@ -77,14 +105,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // Atualiza o cronômetro enquanto o jogo está em andamento
         if (!gameFinished)
         {
-            // Calcula o tempo restante
             float timeRemaining = timeLimit - Time.timeSinceLevelLoad;
             timeText.text = "Time: " + Mathf.Max(0, timeRemaining).ToString("F2") + "s";
 
-            // Verifica se o tempo acabou
             if (timeRemaining <= 0)
             {
                 DEEPER = true;
@@ -94,35 +119,13 @@ public class PlayerController : MonoBehaviour
                 winTextObject.GetComponent<TextMeshProUGUI>().text += "\nPress R to try again!";
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Application.LoadLevel(1);
-        }
-
-        //Back To Main Menu
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            Application.LoadLevel(0);
-        }
-
-        // Jump from stationary, using ray when ball is on floor
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Ray ray = new Ray(transform.position, Vector3.down);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 1.1f))
-            {
-                rb.AddForce(Vector3.up * 5, ForceMode.Impulse);
-            }
-        }
     }
 
-    // Função para reposicionar a bola no ponto de respawn
+    // Função para reposicionar o jogador no ponto de respawn
     void Respawn()
     {
-        rb.velocity = Vector3.zero; // Reseta a velocidade
-        rb.angularVelocity = Vector3.zero; // Reseta a rotação
-        transform.position = respawnPoint.position; // Reposiciona no ponto de respawn
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        transform.position = respawnPoint.position;
     }
 }
