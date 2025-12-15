@@ -169,7 +169,7 @@ jogosDigitais_pedrotpc_roll-a-ball/
 ### Tutorials
 This project was developed following and adapting official Unity tutorials:
 - Unity's Official Roll-A-Ball Tutorial
-- [START MENU in Unity](https://www.youtube.com/watch?v=zc8ac_qUXQY3)
+- [START MENU in Unity](https://www.youtube.com/watch?v=zc8ac_qUXQY)
 
 The base mechanics were extended with custom enemy AI, time-based challenges, and enhanced visual/audio elements.
 
