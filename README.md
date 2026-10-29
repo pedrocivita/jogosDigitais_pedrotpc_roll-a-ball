@@ -8,6 +8,10 @@
 
 A 3D physics-based collection game developed as part of the Computer Engineering program at Insper. In Terraformer, players navigate a post-nuclear environment, collecting sand blocks to stabilize the planet's ecosystem while avoiding radioactive spheres and racing against time.
 
+**Play it in your browser:** https://pedrocivita.github.io/jogosDigitais_pedrotpc_roll-a-ball/
+
+![Terraformer gameplay](docs/preview.png)
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -68,10 +72,9 @@ This project was built using the following technologies:
 
 ### Running the Game
 
-**Option 1: Play Pre-built Version**
-1. Navigate to the `Builds` directory
-2. For Windows: Run `roll_a_ball_pedrotpc.exe`
-3. For WebGL: Open `index.html` in a web browser
+**Option 1: Play the WebGL build**
+1. Online: open https://pedrocivita.github.io/jogosDigitais_pedrotpc_roll-a-ball/
+2. Locally: serve the `docs/` folder with any static server, for example `python3 -m http.server 8000 -d docs`, then open http://localhost:8000. Opening `index.html` straight from disk does not work because browsers block `file://` requests.
 
 **Option 2: Open in Unity Editor**
 1. Clone this repository:
@@ -132,7 +135,7 @@ jogosDigitais_pedrotpc_roll-a-ball/
 │   ├── Materials/                   # Visual materials
 │   ├── Prefabs/                     # Reusable game objects
 │   └── [Asset Packs]/              # Third-party assets
-├── Builds/                          # Compiled game builds
+├── docs/                            # Playable WebGL build (served by GitHub Pages)
 ├── ProjectSettings/                 # Unity project configuration
 └── README.md
 ```
@@ -180,7 +183,9 @@ The base mechanics were extended with custom enemy AI, time-based challenges, an
 1. Open the project in Unity 2022.3.44f1
 2. Go to File > Build Settings
 3. Select your target platform (Windows or WebGL)
-4. Click "Build" and choose output directory
+4. Click "Build" and choose an output directory. Local builds go to `Builds/`, which is gitignored.
+
+To update the browser version, build for WebGL with **Player Settings > Publishing Settings > Compression Format** set to **Disabled** (or **Gzip** with **Decompression Fallback** enabled), then copy the output into `docs/`. Brotli builds only load when the server sends `Content-Encoding: br`, which GitHub Pages does not do.
 
 ### Key Scripts Overview
 
